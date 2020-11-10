@@ -1,95 +1,46 @@
-
 import java.text.ParseException;
-
 import java.util.*;
+
+import javax.swing.JOptionPane;
 
 
 
 class Expense {
 	
-	double weekdayExpense;
-	double weekendExpense;
-	double weekdayDays;
-	double weekendDays;
+	int dayExpense;
+	long days;
 	
 	public  void print() {
-		System.out.println("Weekday Total expense : " + getWeekdayExpense());
-		System.out.println("Weekend Total expense : " + getWeekendExpense());
 		System.out.println("Total expense : " + getTotalExpense());
 	}
 
 	public  double getTotalExpense() {
-		return getWeekdayExpense() + getWeekendExpense();
-	}
-
-	public  double getWeekendExpense() {
-		return weekendExpense * weekendDays;
-	}
-
-	public  double getWeekdayExpense() {
-		return weekdayExpense * weekdayDays;
+		return dayExpense * days;
 	}
 }
 
 
 public class AssetManasement {
 	
-	public static void main(String[] args) throws ParseException{
-		
-		Expense a = new Expense();
-		a.weekdayExpense = 10000.0;
-		a.weekendExpense = 15000.0;
-		a.weekdayDays = 70;
-		a.weekendDays = 10;
-		
-		a.print();	
-		System.out.println();
+	public static void main(String[] args){
 		
 		Calendar today = Calendar.getInstance();
-		today.clear(Calendar.HOUR);
-		today.clear(Calendar.MINUTE);
-		today.clear(Calendar.SECOND);
-		today.clear(Calendar.MILLISECOND);
+		Calendar d_day = Calendar.getInstance();
+		d_day.set(2021, Calendar.APRIL, 10);
 		
-		System.out.println(today);
+		long i_dday = d_day.getTimeInMillis()/(24*60*60*1000);
+		long i_today = today.getTimeInMillis()/(24*60*60*1000);
+		long substract = i_dday - i_today;
 		
-		/*
-		Calendar target = Calendar.getInstance();
-		String from = "2021-04-10 1";
-		SimpleDateFormat fm = new SimpleDateFormat("yyyy-MM-dd-h");
+		Expense a = new Expense();
+	//	a.dayExpense = Integer.parseInt(args[0]);
+		a.dayExpense = Integer.parseInt(JOptionPane.showInputDialog("예상 지출 금액을 입력하세요"));
+		
+		a.days = substract;
+		
+		System.out.println("교육 종료까지 "+substract+"일 남았습니다.");
+		System.out.println("하루 지출 금액은 "+a.dayExpense+"원입니다.");
+		a.print();
 
-		target.setTime(fm.parse(from));
-		target.clear(Calendar.HOUR);
-		target.clear(Calendar.MINUTE);
-		target.clear(Calendar.SECOND);
-		target.clear(Calendar.MILLISECOND);
-		
-		long diffSec = (target.getTimeInMillis() - today.getTimeInMillis());
-		int day = (int)(Math.floor(TimeUnit.HOURS.convert(diffSec, TimeUnit.MILLISECONDS)/24f));
-		
-		System.out.println(day);
-		*/
-		/*
-		Date today = new Date();
-		
-		Calendar targetDay = new GregorianCalendar(2021, Calendar.APRIL, 10);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-		
-		System.out.println(targetDay);
-		System.out.println(today);
-		System.out.println(today.getTime());
-		System.out.println(targetDay.getTime());
-		System.out.println(targetDay.getTimeInMillis());
-		
-		System.out.println("기준날짜 : "+sdf.format(today));
-		System.out.println("목표날짜 : "+sdf.format(targetDay.getTime()));
-		
-			
-		long diffSec = (targetDay.getTimeInMillis() - today.getTime())/1000;
-		long diffDay = diffSec/ (24*60*60);
-		
-		System.out.println(diffDay);
-		*/
-		
 	}
 }
