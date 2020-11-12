@@ -3,44 +3,55 @@ import java.util.*;
 
 import javax.swing.JOptionPane;
 
-
-
-class Expense {
-	
-	int dayExpense;
-	long days;
-	
-	public  void print() {
-		System.out.println("Total expense : " + getTotalExpense());
-	}
-
-	public  double getTotalExpense() {
-		return dayExpense * days;
-	}
-}
-
-
 public class AssetManasement {
-	
-	public static void main(String[] args){
+	public static long getDday() {
 		
 		Calendar today = Calendar.getInstance();
 		Calendar d_day = Calendar.getInstance();
-		d_day.set(2021, Calendar.APRIL, 10);
+		d_day.set(2021, Calendar.APRIL, 29);
 		
 		long i_dday = d_day.getTimeInMillis()/(24*60*60*1000);
-		long i_today = today.getTimeInMillis()/(24*60*60*1000);
-		long substract = i_dday - i_today;
+		long i_today = today.getTimeInMillis()/(24*60*60*1000);	
 		
-		Expense a = new Expense();
-	//	a.dayExpense = Integer.parseInt(args[0]);
-		a.dayExpense = Integer.parseInt(JOptionPane.showInputDialog("예상 지출 금액을 입력하세요"));
+		return i_dday - i_today;
+	}
+	public static String getExpense(long dayExpense) {
 		
-		a.days = substract;
+		String expenseString = Long.toString((getDday() * dayExpense));
 		
-		System.out.println("교육 종료까지 "+substract+"일 남았습니다.");
-		System.out.println("하루 지출 금액은 "+a.dayExpense+"원입니다.");
-		a.print();
+		/*
+		for(int i=0; i<expenseString.length(); i++) {
+			if(i == 0) {
+				recover += expenseString.charAt(expenseString.length()-1);
+			} else {
+				recover += expenseString.charAt(expenseString.length()-(i+1));
+			}
+		}*/
+		/*
+		String recover = "";
+		recover = "1234567890";
+		int j = 0;
+		String resultDoc ="";
+		int m = recover.length()-(recover.length()%3);
+		
+		for(int i=0; i < (recover.length()/3); i++) {
+			resultDoc += recover.substring(j, j+3) + ((j+3>=recover.length())? "" :".");
+			j += 3;
+		}
 
+		System.out.println(resultDoc);
+		System.out.println(recover.substring(j));
+		*/
+		return "\"" + expenseString + "\"";
+		
+	}
+	
+	public static void main(String[] args){
+		
+		System.out.println("교육 종료까지 "+getDday()+"일 남았습니다.");
+		System.out.println("총 지출 금액은 "+getExpense(10000)+"원 입니다.");
+			
+		
+		
 	}
 }
