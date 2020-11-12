@@ -1,6 +1,5 @@
 import java.text.ParseException;
 import java.util.*;
-
 import javax.swing.JOptionPane;
 
 public class AssetManasement {
@@ -15,43 +14,47 @@ public class AssetManasement {
 		
 		return i_dday - i_today;
 	}
-	public static String getExpense(long dayExpense) {
+	public static String invertText (String data) {
+		String invertResult ="";
 		
-		String expenseString = Long.toString((getDday() * dayExpense));
-		
-		/*
-		for(int i=0; i<expenseString.length(); i++) {
+		for(int i=0; i<data.length(); i++) {
 			if(i == 0) {
-				recover += expenseString.charAt(expenseString.length()-1);
+				invertResult += data.charAt(data.length()-1);
 			} else {
-				recover += expenseString.charAt(expenseString.length()-(i+1));
+				invertResult += data.charAt(data.length()-(i+1));
 			}
-		}*/
-		/*
-		String recover = "";
-		recover = "1234567890";
+		}
+		return invertResult ;
+	}
+	public static String addDoc (String data) {
 		int j = 0;
-		String resultDoc ="";
-		int m = recover.length()-(recover.length()%3);
+		String addedDoc ="";
 		
-		for(int i=0; i < (recover.length()/3); i++) {
-			resultDoc += recover.substring(j, j+3) + ((j+3>=recover.length())? "" :".");
+		for(int i=0; i < (data.length()/3); i++) {
+			addedDoc += data.substring(j, j+3) + ((j+3>=data.length())? "" :".");
 			j += 3;
 		}
-
-		System.out.println(resultDoc);
-		System.out.println(recover.substring(j));
-		*/
-		return "\"" + expenseString + "\"";
-		
+				
+		return addedDoc + data.substring(j, (j+data.length()%3));
 	}
 	
+	public static String getExpense(long dayExpense) {
+		/*
+		 *  1. text invert 
+		 *  2. add doc (3자리씩)
+		 *  3. text invert (다시 뒤집기)
+		 */
+		String invertedText = invertText(Long.toString(getDday() * dayExpense));
+		String addedDoc = addDoc(invertedText);
+		String resultText = invertText(addedDoc);
+		
+		return "\"" + resultText + "\"";
+
+	}
 	public static void main(String[] args){
 		
 		System.out.println("교육 종료까지 "+getDday()+"일 남았습니다.");
-		System.out.println("총 지출 금액은 "+getExpense(10000)+"원 입니다.");
-			
-		
-		
+		System.out.println("총 소비 금액은 "+getExpense(10000)+"원 입니다.");
+				
 	}
 }
